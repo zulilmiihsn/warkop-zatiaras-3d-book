@@ -46,43 +46,28 @@ function paintPaperBase(ctx, side, w = FULL_W, h = FULL_H) {
   paintSpineShade(ctx, side, w, h);
 }
 
-function withCoverScale(ctx, draw) {
-  ctx.save();
-  ctx.scale(1.5, 1.5);
-  draw();
-  ctx.restore();
-}
-
-/** Cover painter kotak penuh, sama seperti halaman. isBack=false -> IMGS[5], true -> IMGS[6]. */
+/** Cover painter kotak penuh 1:1, tanpa skala, tanpa potong. */
 export function coverPainter(images, isBack, bump = false) {
   const paint = (ctx) => {
-    withCoverScale(ctx, () => {
-      const side = isBack ? 'r' : 'l';
-      if (bump) {
-        ctx.fillStyle = COLORS.BUMP_GRAY;
-        ctx.fillRect(0, 0, FULL_W, FULL_H);
-      } else {
-        ctx.drawImage(
-          images[isBack ? IMAGE_INDEX.COVER_BACK : IMAGE_INDEX.COVER_FRONT],
-          0,
-          0,
-          FULL_W,
-          FULL_H,
-        );
-        const vignette = ctx.createRadialGradient(FULL_W / 2, FULL_H * 0.4, 250, FULL_W / 2, FULL_H / 2, 950);
-        vignette.addColorStop(0, 'rgba(255,255,255,.07)');
-        vignette.addColorStop(1, 'rgba(0,0,0,.28)');
-        ctx.fillStyle = vignette;
-        ctx.fillRect(0, 0, FULL_W, FULL_H);
-        const edgeX = side === 'l' ? 95 : FULL_W - 95;
-        const edge = ctx.createLinearGradient(edgeX - 14, 0, edgeX + 14, 0);
-        edge.addColorStop(0, 'rgba(0,0,0,.45)');
-        edge.addColorStop(0.5, 'rgba(255,255,255,.14)');
-        edge.addColorStop(1, 'rgba(0,0,0,.3)');
-        ctx.fillStyle = edge;
-        ctx.fillRect(edgeX - 14, 0, 28, FULL_H);
-      }
-    });
+    const side = isBack ? 'r' : 'l';
+    if (bump) {
+      ctx.fillStyle = COLORS.BUMP_GRAY;
+      ctx.fillRect(0, 0, FULL_W, FULL_H);
+    } else {
+      ctx.drawImage(images[isBack ? IMAGE_INDEX.COVER_BACK : IMAGE_INDEX.COVER_FRONT], 0, 0, FULL_W, FULL_H);
+      const vignette = ctx.createRadialGradient(FULL_W / 2, FULL_H * 0.4, 250, FULL_W / 2, FULL_H / 2, 950);
+      vignette.addColorStop(0, 'rgba(255,255,255,.07)');
+      vignette.addColorStop(1, 'rgba(0,0,0,.28)');
+      ctx.fillStyle = vignette;
+      ctx.fillRect(0, 0, FULL_W, FULL_H);
+      const edgeX = side === 'l' ? 95 : FULL_W - 95;
+      const edge = ctx.createLinearGradient(edgeX - 14, 0, edgeX + 14, 0);
+      edge.addColorStop(0, 'rgba(0,0,0,.45)');
+      edge.addColorStop(0.5, 'rgba(255,255,255,.14)');
+      edge.addColorStop(1, 'rgba(0,0,0,.3)');
+      ctx.fillStyle = edge;
+      ctx.fillRect(edgeX - 14, 0, 28, FULL_H);
+    }
   };
   paint.width = COVER_W;
   paint.height = COVER_H;
@@ -104,23 +89,21 @@ export function photoPainter(images, imageIdx, side) {
   return paint;
 }
 
-/** Full-bleed page kotak penuh (img-0 dan img-7). */
+/** Full-bleed page kotak penuh 1:1 (img-0 dan img-7). */
 export function fullBleedPainter(images, imageIdx, side) {
   const paint = (ctx) => {
-    withCoverScale(ctx, () => {
-      ctx.fillStyle = COLORS.CREAM;
-      ctx.fillRect(0, 0, FULL_W, FULL_H);
-      const img = images[imageIdx];
-      const scale = Math.min(FULL_W / img.width, FULL_H / img.height);
-      ctx.drawImage(
-        img,
-        (FULL_W - img.width * scale) / 2,
-        (FULL_H - img.height * scale) / 2,
-        img.width * scale,
-        img.height * scale,
-      );
-      paintSpineShade(ctx, side, FULL_W, FULL_H);
-    });
+    ctx.fillStyle = COLORS.CREAM;
+    ctx.fillRect(0, 0, FULL_W, FULL_H);
+    const img = images[imageIdx];
+    const scale = Math.min(FULL_W / img.width, FULL_H / img.height);
+    ctx.drawImage(
+      img,
+      (FULL_W - img.width * scale) / 2,
+      (FULL_H - img.height * scale) / 2,
+      img.width * scale,
+      img.height * scale,
+    );
+    paintSpineShade(ctx, side, FULL_W, FULL_H);
   };
   paint.width = COVER_W;
   paint.height = COVER_H;
