@@ -11,23 +11,16 @@
     <main id="stage" aria-label="Buku 3D interaktif"></main>
 
     <div id="ui">
-      <div id="bar">
+      <div id="bar" role="toolbar" aria-label="Kontrol buku">
         <button id="prev" type="button" aria-label="Sebelumnya">‹</button>
         <button id="zo" type="button" aria-label="Zoom out">−</button>
         <button id="rs" type="button" aria-label="Reset">⟲</button>
         <button id="zi" type="button" aria-label="Zoom in">+</button>
         <button id="next" type="button" aria-label="Berikutnya">›</button>
-        <input
-          id="br"
-          type="range"
-          min=".6"
-          max="1.5"
-          step=".05"
-          value="1"
-          aria-label="Kecerahan"
-          title="Kecerahan"
-          style="width: 90px; accent-color: #b8352e"
-        />
+        <label class="slider" title="Kecerahan">
+          <span aria-hidden="true">☀</span>
+          <input id="br" type="range" min=".6" max="1.5" step=".05" value="1" aria-label="Kecerahan" />
+        </label>
       </div>
     </div>
 
