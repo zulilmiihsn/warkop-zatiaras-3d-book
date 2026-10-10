@@ -135,7 +135,7 @@ canvas {
 
 @media (max-width: 600px) {
   #bright {
-    top: 16%;
+    top: calc(8px + env(safe-area-inset-top, 0px));
     transform: none;
     right: 24px;
     padding: 8px 7px;
