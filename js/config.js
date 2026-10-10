@@ -13,10 +13,10 @@ export const BOOK = {
 };
 
 export const TEXTURE_CANVAS = {
-  FULL_W: 1024,
-  FULL_H: 1467,
-  PHOTO_W: 1240,
-  PHOTO_H: 1754,
+  FULL_W: 1536,
+  FULL_H: 2200,
+  PHOTO_W: 1536,
+  PHOTO_H: 2200,
   COVER_W: 1536,
   COVER_H: 2200,
   CORNER_RADIUS: 90,
@@ -76,13 +76,13 @@ export const PERF = {
   HIGH_FPS: 58,
   WINDOW_MS: 1500,
   COOLDOWN_MS: 2500,
-  // Index 0 = kualitas penuh, sama persis seperti asli.
+  // Index 0 = kualitas penuh. Floor dijaga agar jauh tetap tajam.
   STEPS: [
     { PIXEL_CAP: 2, SHADOW: 2048 },
-    { PIXEL_CAP: 1.5, SHADOW: 2048 },
+    { PIXEL_CAP: 1.75, SHADOW: 2048 },
+    { PIXEL_CAP: 1.5, SHADOW: 1024 },
     { PIXEL_CAP: 1.25, SHADOW: 1024 },
-    { PIXEL_CAP: 1, SHADOW: 1024 },
-    { PIXEL_CAP: 1, SHADOW: 512 },
+    { PIXEL_CAP: 1.25, SHADOW: 512 },
   ],
 };
 

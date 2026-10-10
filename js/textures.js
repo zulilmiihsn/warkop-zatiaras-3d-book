@@ -6,7 +6,7 @@ export function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
 
-/** Canvas -> THREE.CanvasTexture. Same encoding as original. */
+/** Canvas -> THREE.CanvasTexture. Mipmap + anisotropi maks agar jauh tetap tajam. */
 export function toTexture(renderer, painter, mirrored) {
   const canvas = document.createElement('canvas');
   canvas.width = painter.width || FULL_W;
@@ -15,6 +15,9 @@ export function toTexture(renderer, painter, mirrored) {
   const texture = new THREE.CanvasTexture(canvas);
   texture.encoding = THREE.sRGBEncoding;
   texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  texture.generateMipmaps = true;
+  texture.minFilter = THREE.LinearMipmapLinearFilter;
+  texture.magFilter = THREE.LinearFilter;
   if (mirrored) {
     texture.wrapS = THREE.RepeatWrapping;
     texture.repeat.x = -1;
