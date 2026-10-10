@@ -1,0 +1,5 @@
+node_modules/
+.orig.*
+*.cjs
+.DS_Store
+Thumbs.db

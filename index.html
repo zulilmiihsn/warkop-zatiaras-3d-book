@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Buku 3D interaktif Warkop Zatiaras — balik halaman, zoom, geser." />
+  <title>Buku 3D Interaktif — Warkop Zatiaras</title>
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <div id="pg" role="status" aria-live="polite"></div>
+  <main id="stage" aria-label="Buku 3D interaktif"></main>
+
+  <div id="ui">
+    <div id="hint"></div>
+    <div id="bar">
+      <button id="prev" type="button" aria-label="Sebelumnya">‹</button>
+      <button id="zo" type="button" aria-label="Zoom out">−</button>
+      <button id="rs" type="button" aria-label="Reset">⟲</button>
+      <button id="zi" type="button" aria-label="Zoom in">+</button>
+      <button id="next" type="button" aria-label="Berikutnya">›</button>
+      <input id="br" type="range" min=".6" max="1.5" step=".05" value="1" aria-label="Kecerahan" title="Kecerahan" style="width:90px;accent-color:#b8352e" />
+    </div>
+  </div>
+
+  <!-- three r128 global. Versi dikunci agar render sama persis. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
