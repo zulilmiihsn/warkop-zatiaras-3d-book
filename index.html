@@ -17,12 +17,23 @@
         <button id="rs" type="button" aria-label="Reset">⟲</button>
         <button id="zi" type="button" aria-label="Zoom in">+</button>
         <button id="next" type="button" aria-label="Berikutnya">›</button>
-        <label class="slider" title="Kecerahan">
-          <span aria-hidden="true">☀</span>
-          <input id="br" type="range" min=".6" max="1.5" step=".05" value="1" aria-label="Kecerahan" />
-        </label>
       </div>
     </div>
+
+    <aside id="bright" aria-label="Kecerahan">
+      <span aria-hidden="true">☀</span>
+      <input
+        id="br"
+        type="range"
+        min=".6"
+        max="1.5"
+        step=".05"
+        value="1"
+        orient="vertical"
+        aria-label="Kecerahan"
+      />
+      <span class="dim" aria-hidden="true">◐</span>
+    </aside>
 
     <!-- three r128 global. Versi dikunci agar render sama persis. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
