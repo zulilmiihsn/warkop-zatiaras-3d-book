@@ -33,8 +33,9 @@ export function createBook(renderer, bookGroup, images) {
 
   spreads.forEach((spread, i) => {
     const isCoverLeaf = i === 0 || i === spreads.length - 1;
-    const w = isCoverLeaf ? BOOK.PAGE_WIDTH + BOOK.COVER_EXTRA_W : BOOK.PAGE_WIDTH;
-    const h = isCoverLeaf ? BOOK.PAGE_HEIGHT + BOOK.COVER_EXTRA_H : BOOK.PAGE_HEIGHT;
+    // Rata cover: semua daun 2.93 x 4.2. Beda stiffness tetap.
+    const w = BOOK.PAGE_WIDTH + BOOK.COVER_EXTRA_W;
+    const h = BOOK.PAGE_HEIGHT + BOOK.COVER_EXTRA_H;
     const geo = new THREE.PlaneGeometry(w, h, BOOK.SEGMENTS, 1);
     geo.translate(w / 2, 0, 0);
 
