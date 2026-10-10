@@ -68,7 +68,7 @@ export const CAMERA = {
   FIT_SPAN: 7,
 };
 
-export const ZOOM = { MIN: 0.6, MAX: 3.2, STEP: 1.25, DOUBLE_TAP: 2 };
+export const ZOOM = { MIN: 1, MAX: 3.2, STEP: 1.25, DOUBLE_TAP: 2 };
 
 // Emboss timbul halus dari tinta. Kecil saja agar mewah, tidak lebay.
 export const EMBOSS = { COVER: 0.02, PAGE: 0.007 };

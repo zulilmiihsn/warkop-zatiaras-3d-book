@@ -17,8 +17,8 @@ describe('config', () => {
     assert.ok(IMAGE_FILES.every((f) => f.startsWith('assets/img-')));
   });
 
-  it('zoom + fisika waras', () => {
-    assert.ok(ZOOM.MIN < 1 && ZOOM.MAX > 1);
+  it('zoom dikunci tidak bisa lebih kecil dari pas', () => {
+    assert.ok(ZOOM.MIN >= 1 && ZOOM.MAX > 1);
     assert.ok(PHYSICS.SPRING > 0 && PHYSICS.DAMPING > 0);
     assert.ok(CAMERA.FOV === 35);
   });

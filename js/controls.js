@@ -165,7 +165,9 @@ export function attachControls({ stageEl, state, ui }) {
         else {
           const t = performance.now();
           if (t - lastTap < 320) {
-            if (state.zoomTarget > 1.2) resetView(state);
+            // Ketuk 2x: selalu pulang ke pas dulu, kalau sudah pas baru zoom 2.
+            if (Math.abs(state.zoomTarget - 1) > 0.05 || state.panTX !== 0 || state.panTZ !== 0)
+              resetView(state);
             else setZoom(state, ZOOM.DOUBLE_TAP);
           }
           lastTap = t;
