@@ -68,6 +68,17 @@ export function createBook(renderer, bookGroup, images) {
     });
   });
 
+  // Tulang punggung hardcover. Mengikat semua daun agar buku duduk realistik.
+  const coverH = BOOK.PAGE_HEIGHT + BOOK.COVER_EXTRA_H;
+  const spine = new THREE.Mesh(
+    new THREE.BoxGeometry(0.16, coverH, BOOK.LEAF_COUNT * BOOK.STACK_GAP + 0.05),
+    new THREE.MeshStandardMaterial({ color: 0x6e1a1a, roughness: 0.65, metalness: 0 }),
+  );
+  spine.position.set(-0.06, 0, ((BOOK.LEAF_COUNT - 1) * BOOK.STACK_GAP) / 2);
+  spine.castShadow = true;
+  spine.receiveShadow = true;
+  bookGroup.add(spine);
+
   return leaves;
 }
 

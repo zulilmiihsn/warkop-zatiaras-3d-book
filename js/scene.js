@@ -35,7 +35,7 @@ export function createStage(stageEl) {
   fill.position.set(3, 5, -4);
   scene.add(fill);
 
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), new THREE.ShadowMaterial({ opacity: 0.14 }));
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), new THREE.ShadowMaterial({ opacity: 0.18 }));
   floor.rotation.x = -Math.PI / 2;
   floor.position.y = -0.02;
   floor.receiveShadow = true;
