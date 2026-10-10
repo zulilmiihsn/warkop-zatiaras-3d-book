@@ -114,6 +114,11 @@ canvas {
   z-index: 10;
   color: #b8352e;
   font-size: 14px;
+  transition: opacity 0.6s;
+}
+
+#bright.idle {
+  opacity: 0.1;
 }
 
 #bright .dim {
