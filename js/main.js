@@ -6,7 +6,6 @@ import { createState, attachControls } from './controls.js';
 import { createPerfMonitor, updatePerf } from './perf.js';
 
 const stageEl = document.getElementById('stage');
-const pageEl = document.getElementById('pg');
 const hintEl = document.getElementById('hint');
 const brightnessEl = document.getElementById('br');
 
@@ -103,14 +102,6 @@ function tick(now) {
     state.panZ + state.camDist * Math.cos(state.yaw) * Math.cos(tilt),
   );
   camera.lookAt(state.panX, 0, state.panZ);
-
-  const rounded = Math.round(state.page);
-  pageEl.textContent =
-    rounded === 0
-      ? UI_TEXT.COVER
-      : rounded === BOOK.LEAF_COUNT
-        ? UI_TEXT.COVER_BACK
-        : `Lembar ${rounded} / ${BOOK.LEAF_COUNT - 1}`;
 
   renderer.render(scene, camera);
   requestAnimationFrame(tick);

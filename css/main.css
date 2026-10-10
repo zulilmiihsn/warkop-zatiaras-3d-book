@@ -88,14 +88,3 @@ canvas {
 #bar button:active {
   transform: scale(0.95);
 }
-
-#pg {
-  position: absolute;
-  top: calc(14px + env(safe-area-inset-top, 0px));
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-size: 13px;
-  opacity: 0.6;
-  z-index: 10;
-}
