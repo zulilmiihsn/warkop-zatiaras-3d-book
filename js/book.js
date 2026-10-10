@@ -13,16 +13,27 @@ function buildSpreads(images) {
 
 function paperMaterial(renderer, painter, isCover, side, mirrored = false) {
   const tex = toTexture(renderer, painter, mirrored);
-  const mat = new THREE.MeshStandardMaterial({
+  // Cover laminasi minyak: clearcoat kilap. Isi kertas doff.
+  if (isCover) {
+    return new THREE.MeshPhysicalMaterial({
+      map: tex,
+      roughness: 0.35,
+      metalness: 0,
+      side,
+      bumpMap: tex,
+      bumpScale: EMBOSS.COVER,
+      clearcoat: 0.7,
+      clearcoatRoughness: 0.25,
+    });
+  }
+  return new THREE.MeshStandardMaterial({
     map: tex,
-    roughness: isCover ? 0.55 : 0.9,
+    roughness: 0.9,
     metalness: 0,
     side,
-    // Emboss dari tinta yang sama. Halus, mewah.
     bumpMap: tex,
-    bumpScale: isCover ? EMBOSS.COVER : EMBOSS.PAGE,
+    bumpScale: EMBOSS.PAGE,
   });
-  return mat;
 }
 
 /** Build 4 leaves. Geometry + bend math identical to original. */

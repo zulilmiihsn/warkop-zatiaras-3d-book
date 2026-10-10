@@ -40,12 +40,12 @@ function paintPaperBase(ctx, side, w = FULL_W, h = FULL_H) {
   ctx.fillStyle = COLORS.CREAM;
   ctx.fillRect(0, 0, w, h);
   // Serat kertas dua lapis: bintik halus + serat panjang samar.
-  for (let i = 0; i < 14000; i++) {
-    ctx.fillStyle = 'rgba(150,100,60,' + Math.random() * 0.07 + ')';
+  for (let i = 0; i < 18000; i++) {
+    ctx.fillStyle = 'rgba(150,100,60,' + Math.random() * 0.08 + ')';
     ctx.fillRect(Math.random() * w, Math.random() * h, 1 + Math.random() * 2, 1);
   }
-  for (let i = 0; i < 900; i++) {
-    ctx.fillStyle = 'rgba(120,85,50,' + Math.random() * 0.05 + ')';
+  for (let i = 0; i < 1200; i++) {
+    ctx.fillStyle = 'rgba(120,85,50,' + Math.random() * 0.06 + ')';
     ctx.fillRect(Math.random() * w, Math.random() * h, 4 + Math.random() * 8, 1);
   }
   paintSpineShade(ctx, side, w, h);
