@@ -134,7 +134,14 @@ canvas {
 }
 
 @media (max-width: 600px) {
+  #bright {
+    top: 16%;
+    transform: none;
+    right: 24px;
+    padding: 8px 7px;
+  }
+
   #bright input[type='range'] {
-    height: 96px;
+    height: 88px;
   }
 }
