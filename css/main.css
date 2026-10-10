@@ -121,16 +121,27 @@ canvas {
   display: grid;
   place-items: center;
   font-size: 18px;
+  line-height: 1;
   cursor: pointer;
   flex: 0 0 auto;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-#bar button:hover {
-  background: rgba(0, 0, 0, 0.06);
+@media (hover: hover) and (pointer: fine) {
+  #bar button:hover {
+    background: rgba(0, 0, 0, 0.06);
+  }
 }
 
 #bar button:active {
+  background: rgba(0, 0, 0, 0.06);
   transform: scale(0.95);
+}
+
+#bar button:focus-visible {
+  outline: 2px solid #b8352e;
+  outline-offset: 1px;
 }
 
 #bright {
