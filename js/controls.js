@@ -50,7 +50,12 @@ function pinchDist(points) {
 export function attachControls({ stageEl, state, ui }) {
   const points = {};
   let mode = null;
-  let startX, startY, startPage, lastX, lastT, velocityX = 0;
+  let startX,
+    startY,
+    startPage,
+    lastX,
+    lastT,
+    velocityX = 0;
   let moved = false;
   let pinchD, pinchZoom, pinchMid, pinchPanX, pinchPanZ;
   let lastTap = 0;
@@ -148,7 +153,11 @@ export function attachControls({ stageEl, state, ui }) {
       if (state.dragging) {
         const d = state.target - startPage;
         state.target =
-          Math.abs(d) > 0.25 ? startPage + Math.sign(d) : Math.abs(velocityX) > 0.45 ? startPage - Math.sign(velocityX) : startPage;
+          Math.abs(d) > 0.25
+            ? startPage + Math.sign(d)
+            : Math.abs(velocityX) > 0.45
+              ? startPage - Math.sign(velocityX)
+              : startPage;
         state.target = clamp(Math.round(state.target), 0, BOOK.LEAF_COUNT);
         state.dragging = false;
       } else if (!moved) {

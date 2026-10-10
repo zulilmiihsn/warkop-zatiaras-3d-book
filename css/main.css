@@ -19,7 +19,11 @@ body {
 
 body {
   background: radial-gradient(ellipse at 50% 38%, #fff 0%, #f1efea 55%, #dedbd3 100%);
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
   color: var(--ink);
   -webkit-user-select: none;
   user-select: none;

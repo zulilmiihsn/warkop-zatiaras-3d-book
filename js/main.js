@@ -63,11 +63,20 @@ function tick(now) {
       leaf.pivot.position.z =
         (BOOK.LEAF_COUNT - 1 - leaf.index) * BOOK.STACK_GAP +
         (leaf.index - (BOOK.LEAF_COUNT - 1 - leaf.index)) * BOOK.STACK_GAP * eased;
-      bendLeaf(leaf, p, leaf.stiffness * Math.sin(Math.PI * p) * (0.5 + 0.7 * clamp(state.velocity / 3, -1, 1)));
+      bendLeaf(
+        leaf,
+        p,
+        leaf.stiffness * Math.sin(Math.PI * p) * (0.5 + 0.7 * clamp(state.velocity / 3, -1, 1)),
+      );
     }
   });
 
-  const shift = state.page <= 1 ? -0.5 * (1 - state.page) : state.page >= BOOK.LEAF_COUNT - 1 ? 0.5 * (state.page - (BOOK.LEAF_COUNT - 1)) : 0;
+  const shift =
+    state.page <= 1
+      ? -0.5 * (1 - state.page)
+      : state.page >= BOOK.LEAF_COUNT - 1
+        ? 0.5 * (state.page - (BOOK.LEAF_COUNT - 1))
+        : 0;
   bookGroup.position.x = shift * BOOK.PAGE_WIDTH;
 
   state.zoom += (state.zoomTarget - state.zoom) * PHYSICS.SMOOTH_ZOOM;
@@ -94,7 +103,11 @@ function tick(now) {
 
   const rounded = Math.round(state.page);
   pageEl.textContent =
-    rounded === 0 ? UI_TEXT.COVER : rounded === BOOK.LEAF_COUNT ? UI_TEXT.COVER_BACK : `Lembar ${rounded} / ${BOOK.LEAF_COUNT - 1}`;
+    rounded === 0
+      ? UI_TEXT.COVER
+      : rounded === BOOK.LEAF_COUNT
+        ? UI_TEXT.COVER_BACK
+        : `Lembar ${rounded} / ${BOOK.LEAF_COUNT - 1}`;
 
   renderer.render(scene, camera);
   requestAnimationFrame(tick);

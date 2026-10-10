@@ -1,6 +1,8 @@
 # Warkop Zatiaras — Buku 3D Interaktif
 
-Buku 3D interaktif. Visual sama persis dengan file asli. Kode dibersihkan.
+![ci](https://github.com/zulilmiihsn/warkop-zatiaras-3d-book/actions/workflows/ci.yml/badge.svg)
+
+Buku 3D interaktif. Visual sama persis dengan file asli. Kode bersih penuh.
 
 ## Struktur
 
@@ -17,11 +19,15 @@ Buku 3D interaktif. Visual sama persis dengan file asli. Kode dibersihkan.
 
 ## Jalan
 
-Buka `index.html` via server lokal:
-
 ```bash
-npx serve .
+npm install
+npm run dev
+npm test
+npm run lint
+npm run format
 ```
+
+Live via GitHub Pages `pages.yml`.
 
 ## Catatan visual
 

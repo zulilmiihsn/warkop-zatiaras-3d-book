@@ -1,0 +1,21 @@
+{
+  "name": "warkop-zatiaras-3d-book",
+  "version": "1.0.0",
+  "description": "Buku 3D interaktif Warkop Zatiaras",
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve .",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "node --test test/"
+  },
+  "devDependencies": {
+    "eslint": "^9.18.0",
+    "prettier": "^3.4.2",
+    "globals": "^15.14.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

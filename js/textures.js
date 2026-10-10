@@ -83,7 +83,13 @@ export function coverPainter(images, isBack, bump = false) {
         ctx.fillStyle = COLORS.BUMP_GRAY;
         ctx.fillRect(0, 0, FULL_W, FULL_H);
       } else {
-        ctx.drawImage(images[isBack ? IMAGE_INDEX.COVER_BACK : IMAGE_INDEX.COVER_FRONT], 0, 0, FULL_W, FULL_H);
+        ctx.drawImage(
+          images[isBack ? IMAGE_INDEX.COVER_BACK : IMAGE_INDEX.COVER_FRONT],
+          0,
+          0,
+          FULL_W,
+          FULL_H,
+        );
         const vignette = ctx.createRadialGradient(FULL_W / 2, FULL_H * 0.4, 250, FULL_W / 2, FULL_H / 2, 950);
         vignette.addColorStop(0, 'rgba(255,255,255,.07)');
         vignette.addColorStop(1, 'rgba(0,0,0,.28)');
@@ -131,7 +137,13 @@ export function fullBleedPainter(images, imageIdx, side) {
       ctx.fillRect(0, 0, FULL_W, FULL_H);
       const img = images[imageIdx];
       const scale = Math.min(FULL_W / img.width, FULL_H / img.height);
-      ctx.drawImage(img, (FULL_W - img.width * scale) / 2, (FULL_H - img.height * scale) / 2, img.width * scale, img.height * scale);
+      ctx.drawImage(
+        img,
+        (FULL_W - img.width * scale) / 2,
+        (FULL_H - img.height * scale) / 2,
+        img.width * scale,
+        img.height * scale,
+      );
       paintSpineShade(ctx, side, FULL_W, FULL_H);
       ctx.restore();
     });

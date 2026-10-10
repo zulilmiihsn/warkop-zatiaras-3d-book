@@ -39,7 +39,8 @@ export function createBook(renderer, bookGroup, images) {
     geo.translate(w / 2, 0, 0);
 
     const frontBump = i === 0 ? toTexture(renderer, coverPainter(images, false, true), false) : null;
-    const backBump = i === spreads.length - 1 ? toTexture(renderer, coverPainter(images, true, true), true) : null;
+    const backBump =
+      i === spreads.length - 1 ? toTexture(renderer, coverPainter(images, true, true), true) : null;
     void backBump;
 
     const front = new THREE.Mesh(
