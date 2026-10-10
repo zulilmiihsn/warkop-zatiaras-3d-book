@@ -1,7 +1,7 @@
 import { BOOK, PHYSICS, CAMERA, IMAGE_FILES } from './config.js';
 import { clamp } from './textures.js';
 import { createStage, fitStage } from './scene.js';
-import { createBook, bendLeaf } from './book.js';
+import { createBook, bendLeaf, refreshBookTextures } from './book.js';
 import { createState, attachControls } from './controls.js';
 import { createPerfMonitor, updatePerf } from './perf.js';
 
@@ -129,29 +129,33 @@ function tick(now) {
   requestAnimationFrame(tick);
 }
 
-const loadPct = document.getElementById('load-pct');
-let loadDone = 0;
+// Buku langsung jadi dari placeholder krem. Gambar asli susul diam-diam.
+const placeholderCanvas = document.createElement('canvas');
+placeholderCanvas.width = 1;
+placeholderCanvas.height = 1;
+placeholderCanvas.getContext('2d').fillStyle = '#fdeed7';
+placeholderCanvas.getContext('2d').fillRect(0, 0, 1, 1);
+leaves = createBook(
+  renderer,
+  bookGroup,
+  Array.from({ length: IMAGE_FILES.length }, () => placeholderCanvas),
+);
+requestAnimationFrame(tick);
+showSwipeWithBook();
+
 Promise.all(
   IMAGE_FILES.map(
     (src) =>
       new Promise((resolve, reject) => {
         const img = new Image();
-        img.onload = () => {
-          loadDone += 1;
-          loadPct.textContent = Math.round((loadDone / IMAGE_FILES.length) * 100) + '%';
-          resolve(img);
-        };
+        img.onload = () => resolve(img);
         img.onerror = () => reject(new Error('Gagal load ' + src));
         img.src = src;
       }),
   ),
 )
   .then((images) => {
-    leaves = createBook(renderer, bookGroup, images);
-    requestAnimationFrame(tick);
-    document.getElementById('loader').classList.add('done');
-    setTimeout(() => document.getElementById('loader').remove(), 500);
-    showSwipeWithBook();
+    refreshBookTextures(renderer, leaves, images);
   })
   .catch((err) => {
     console.error(err);

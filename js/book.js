@@ -76,12 +76,32 @@ export function createBook(renderer, bookGroup, images) {
       progress: -1,
       width: w,
       height: h,
+      isCover: isCoverLeaf,
       // Lentur sama semua agar tepi blend, tidak patah cover vs isi.
       stiffness: BOOK.PAGE_STIFFNESS,
     });
   });
 
   return leaves;
+}
+
+/** Tukar tekstur placeholder ke gambar asli tanpa bangun ulang geometri. */
+export function refreshBookTextures(renderer, leaves, images) {
+  const spreads = buildSpreads(images);
+  leaves.forEach((leaf, i) => {
+    const [frontPainter, backPainter] = spreads[i];
+    for (const [mesh, painter, mirrored] of [
+      [leaf.pivot.children[0], frontPainter, false],
+      [leaf.pivot.children[1], backPainter, true],
+    ]) {
+      const old = mesh.material.map;
+      const tex = toTexture(renderer, painter, mirrored);
+      mesh.material.map = tex;
+      mesh.material.bumpMap = tex;
+      mesh.material.needsUpdate = true;
+      if (old) old.dispose();
+    }
+  });
 }
 
 /** Curl leaf. Formula unchanged. */
