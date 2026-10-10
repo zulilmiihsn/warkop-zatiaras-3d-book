@@ -19,7 +19,7 @@ brightnessEl.oninput = function brightness() {
   key.intensity = 0.55 * v;
 };
 
-// Redupkan kontrol brightness saat 3 detik tanpa interaksi.
+// Brightness hanya penuh saat disentuh. Sisanya redup 10%.
 const brightBox = document.getElementById('bright');
 let idleTimer = 0;
 function wakeBright() {
@@ -27,10 +27,10 @@ function wakeBright() {
   clearTimeout(idleTimer);
   idleTimer = setTimeout(() => brightBox.classList.add('idle'), 1500);
 }
-['pointerdown', 'pointermove', 'wheel', 'keydown', 'touchstart'].forEach((ev) =>
-  addEventListener(ev, wakeBright, { passive: true }),
+['pointerdown', 'pointerenter', 'input', 'focusin', 'touchstart'].forEach((ev) =>
+  brightBox.addEventListener(ev, wakeBright, { passive: true }),
 );
-wakeBright();
+brightBox.classList.add('idle');
 
 attachControls({
   stageEl,
