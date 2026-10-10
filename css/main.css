@@ -65,14 +65,14 @@ body {
 
 @keyframes swipeHint {
   0% {
-    transform: translate(-90%, -50%);
+    transform: translate(10%, -50%);
     opacity: 0;
   }
   30% {
     opacity: 1;
   }
   100% {
-    transform: translate(10%, -50%);
+    transform: translate(-90%, -50%);
     opacity: 0;
   }
 }
