@@ -8,14 +8,10 @@ import { createPerfMonitor, updatePerf } from './perf.js';
 const stageEl = document.getElementById('stage');
 const brightnessEl = document.getElementById('br');
 
-// Isyarat jari 2 detik bareng buku, sekali saja, khusus layar sentuh.
+// Isyarat jari 2 detik bareng buku, tiap buka, khusus layar sentuh.
 function showSwipeWithBook() {
   try {
-    if (
-      (matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0) &&
-      !localStorage.getItem('wz-swipe-seen')
-    ) {
-      localStorage.setItem('wz-swipe-seen', '1');
+    if (matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0) {
       const swipeEl = document.getElementById('swipe');
       swipeEl.classList.add('show');
       setTimeout(() => swipeEl.remove(), 2100);
