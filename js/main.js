@@ -10,7 +10,10 @@ const brightnessEl = document.getElementById('br');
 
 // Isyarat sapu 2 detik, sekali saja, khusus layar sentuh.
 try {
-  if (matchMedia('(pointer: coarse)').matches && !localStorage.getItem('wz-swipe-seen')) {
+  if (
+    (matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0) &&
+    !localStorage.getItem('wz-swipe-seen')
+  ) {
     localStorage.setItem('wz-swipe-seen', '1');
     const swipeEl = document.getElementById('swipe');
     swipeEl.classList.add('show');
