@@ -60,13 +60,6 @@ export function createBook(renderer, bookGroup, images) {
     front.receiveShadow = true;
     back.receiveShadow = true;
     front.material.shadowSide = THREE.DoubleSide;
-    if (isCoverLeaf) {
-      front.customDepthMaterial = new THREE.MeshDepthMaterial({
-        depthPacking: THREE.RGBADepthPacking,
-        map: front.material.map,
-        alphaTest: 0.5,
-      });
-    }
     front.frustumCulled = false;
     back.frustumCulled = false;
 
@@ -80,7 +73,8 @@ export function createBook(renderer, bookGroup, images) {
       progress: -1,
       width: w,
       height: h,
-      stiffness: isCoverLeaf ? BOOK.COVER_STIFFNESS : BOOK.PAGE_STIFFNESS,
+      // Lentur sama semua agar tepi blend, tidak patah cover vs isi.
+      stiffness: BOOK.PAGE_STIFFNESS,
     });
   });
 
