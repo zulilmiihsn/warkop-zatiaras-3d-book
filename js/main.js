@@ -25,7 +25,7 @@ let idleTimer = 0;
 function wakeBright() {
   brightBox.classList.remove('idle');
   clearTimeout(idleTimer);
-  idleTimer = setTimeout(() => brightBox.classList.add('idle'), 3000);
+  idleTimer = setTimeout(() => brightBox.classList.add('idle'), 1500);
 }
 ['pointerdown', 'pointermove', 'wheel', 'keydown', 'touchstart'].forEach((ev) =>
   addEventListener(ev, wakeBright, { passive: true }),
