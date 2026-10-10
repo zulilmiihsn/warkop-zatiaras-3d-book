@@ -59,14 +59,6 @@ canvas {
   z-index: 10;
 }
 
-#hint {
-  font-size: 13px;
-  opacity: 0.8;
-  text-align: center;
-  padding: 0 16px;
-  transition: opacity 1s;
-}
-
 #bar {
   display: flex;
   gap: 6px;

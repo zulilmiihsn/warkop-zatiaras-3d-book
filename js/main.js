@@ -1,4 +1,4 @@
-import { BOOK, PHYSICS, CAMERA, IMAGE_FILES, UI_TEXT } from './config.js';
+import { BOOK, PHYSICS, CAMERA, IMAGE_FILES } from './config.js';
 import { clamp, loadImages } from './textures.js';
 import { createStage, fitStage } from './scene.js';
 import { createBook, bendLeaf } from './book.js';
@@ -6,13 +6,7 @@ import { createState, attachControls } from './controls.js';
 import { createPerfMonitor, updatePerf } from './perf.js';
 
 const stageEl = document.getElementById('stage');
-const hintEl = document.getElementById('hint');
 const brightnessEl = document.getElementById('br');
-
-hintEl.textContent = matchMedia('(pointer: coarse)').matches ? UI_TEXT.HINT_TOUCH : UI_TEXT.HINT_DESKTOP;
-setTimeout(() => {
-  hintEl.style.opacity = 0;
-}, 9000);
 
 const state = createState();
 const { renderer, scene, camera, hemi, key, bookGroup } = createStage(stageEl);
@@ -113,6 +107,6 @@ loadImages(IMAGE_FILES)
     requestAnimationFrame(tick);
   })
   .catch((err) => {
-    hintEl.style.opacity = 1;
-    hintEl.textContent = 'Gagal memuat gambar: ' + err.message;
+    console.error(err);
+    document.title = 'Gagal memuat gambar';
   });

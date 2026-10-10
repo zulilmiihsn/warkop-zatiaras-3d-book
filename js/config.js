@@ -88,11 +88,3 @@ export const PERF = {
     { PIXEL_CAP: 1.25, SHADOW: 512 },
   ],
 };
-
-export const UI_TEXT = {
-  HINT_TOUCH: 'Geser jari untuk membalik halaman · Cubit 2 jari untuk zoom · Ketuk 2× untuk zoom cepat',
-  HINT_DESKTOP:
-    'Tarik dengan kursor untuk membalik · Scroll untuk zoom · Gerakkan kursor untuk melihat dari sudut lain · ← → +/−',
-  COVER: 'Sampul',
-  COVER_BACK: 'Sampul belakang',
-};
