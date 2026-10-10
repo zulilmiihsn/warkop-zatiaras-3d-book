@@ -1,6 +1,6 @@
 import { TEXTURE_CANVAS, COLORS, IMAGE_INDEX } from './config.js';
 
-const { FULL_W, FULL_H, PHOTO_W, PHOTO_H, COVER_W, COVER_H, CORNER_RADIUS } = TEXTURE_CANVAS;
+const { FULL_W, FULL_H, PHOTO_W, PHOTO_H, COVER_W, COVER_H } = TEXTURE_CANVAS;
 
 export function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
@@ -43,27 +43,6 @@ function paintPaperBase(ctx, side, w = FULL_W, h = FULL_H) {
   paintSpineShade(ctx, side, w, h);
 }
 
-function clipRoundedPage(ctx, side) {
-  const r = CORNER_RADIUS;
-  ctx.beginPath();
-  if (side === 'l') {
-    ctx.moveTo(0, 0);
-    ctx.lineTo(FULL_W - r, 0);
-    ctx.arcTo(FULL_W, 0, FULL_W, r, r);
-    ctx.lineTo(FULL_W, FULL_H - r);
-    ctx.arcTo(FULL_W, FULL_H, FULL_W - r, FULL_H, r);
-    ctx.lineTo(0, FULL_H);
-  } else {
-    ctx.moveTo(FULL_W, 0);
-    ctx.lineTo(r, 0);
-    ctx.arcTo(0, 0, 0, r, r);
-    ctx.lineTo(0, FULL_H - r);
-    ctx.arcTo(0, FULL_H, r, FULL_H, r);
-    ctx.lineTo(FULL_W, FULL_H);
-  }
-  ctx.closePath();
-}
-
 function withCoverScale(ctx, draw) {
   ctx.save();
   ctx.scale(1.5, 1.5);
@@ -71,14 +50,11 @@ function withCoverScale(ctx, draw) {
   ctx.restore();
 }
 
-/** Cover painter. isBack=false -> IMGS[5], true -> IMGS[6]. bump=true -> gray bump map. */
+/** Cover painter kotak penuh, sama seperti halaman. isBack=false -> IMGS[5], true -> IMGS[6]. */
 export function coverPainter(images, isBack, bump = false) {
   const paint = (ctx) => {
     withCoverScale(ctx, () => {
       const side = isBack ? 'r' : 'l';
-      clipRoundedPage(ctx, side);
-      ctx.save();
-      ctx.clip();
       if (bump) {
         ctx.fillStyle = COLORS.BUMP_GRAY;
         ctx.fillRect(0, 0, FULL_W, FULL_H);
@@ -103,7 +79,6 @@ export function coverPainter(images, isBack, bump = false) {
         ctx.fillStyle = edge;
         ctx.fillRect(edgeX - 14, 0, 28, FULL_H);
       }
-      ctx.restore();
     });
   };
   paint.width = COVER_W;
@@ -126,13 +101,10 @@ export function photoPainter(images, imageIdx, side) {
   return paint;
 }
 
-/** Full-bleed page (used for img-0 and img-7). Same cover-scale path as original. */
+/** Full-bleed page kotak penuh (img-0 dan img-7). */
 export function fullBleedPainter(images, imageIdx, side) {
   const paint = (ctx) => {
     withCoverScale(ctx, () => {
-      clipRoundedPage(ctx, side);
-      ctx.save();
-      ctx.clip();
       ctx.fillStyle = COLORS.CREAM;
       ctx.fillRect(0, 0, FULL_W, FULL_H);
       const img = images[imageIdx];
@@ -145,7 +117,6 @@ export function fullBleedPainter(images, imageIdx, side) {
         img.height * scale,
       );
       paintSpineShade(ctx, side, FULL_W, FULL_H);
-      ctx.restore();
     });
   };
   paint.width = COVER_W;
