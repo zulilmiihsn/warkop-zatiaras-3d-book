@@ -11,9 +11,9 @@ function buildSpreads(images) {
   ];
 }
 
-function paperMaterial(renderer, painter, isCover, side, bumpPainter) {
+function paperMaterial(renderer, painter, isCover, side, bumpPainter, mirrored = false) {
   const mat = new THREE.MeshStandardMaterial({
-    map: toTexture(renderer, painter, false),
+    map: toTexture(renderer, painter, mirrored),
     roughness: isCover ? 0.6 : 0.92,
     metalness: 0,
     side,
@@ -39,21 +39,19 @@ export function createBook(renderer, bookGroup, images) {
     geo.translate(w / 2, 0, 0);
 
     const frontBump = i === 0 ? toTexture(renderer, coverPainter(images, false, true), false) : null;
-    const backBump =
-      i === spreads.length - 1 ? toTexture(renderer, coverPainter(images, true, true), true) : null;
-    void backBump;
 
     const front = new THREE.Mesh(
       geo,
-      paperMaterial(renderer, spread[0], isCoverLeaf, THREE.FrontSide, frontBump),
+      paperMaterial(renderer, spread[0], isCoverLeaf, THREE.FrontSide, frontBump, false),
     );
-    // Back bump only matters on last leaf; keep same call shape as original.
+    // Belakang wajib mirror, sama seperti tex(f[1],1) asli. Tanpa ini teks terbalik.
     const backMat = paperMaterial(
       renderer,
       spread[1],
       isCoverLeaf,
       THREE.BackSide,
       i === spreads.length - 1 ? toTexture(renderer, coverPainter(images, true, true), true) : null,
+      true,
     );
     const back = new THREE.Mesh(geo, backMat);
 
