@@ -1,5 +1,5 @@
 import { BOOK, PHYSICS, CAMERA, IMAGE_FILES } from './config.js';
-import { clamp, loadImages } from './textures.js';
+import { clamp } from './textures.js';
 import { createStage, fitStage } from './scene.js';
 import { createBook, bendLeaf } from './book.js';
 import { createState, attachControls } from './controls.js';
@@ -133,10 +133,28 @@ function tick(now) {
   requestAnimationFrame(tick);
 }
 
-loadImages(IMAGE_FILES)
+const loadPct = document.getElementById('load-pct');
+let loadDone = 0;
+Promise.all(
+  IMAGE_FILES.map(
+    (src) =>
+      new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          loadDone += 1;
+          loadPct.textContent = Math.round((loadDone / IMAGE_FILES.length) * 100) + '%';
+          resolve(img);
+        };
+        img.onerror = () => reject(new Error('Gagal load ' + src));
+        img.src = src;
+      }),
+  ),
+)
   .then((images) => {
     leaves = createBook(renderer, bookGroup, images);
     requestAnimationFrame(tick);
+    document.getElementById('loader').classList.add('done');
+    setTimeout(() => document.getElementById('loader').remove(), 500);
     showSwipeWithBook();
   })
   .catch((err) => {
