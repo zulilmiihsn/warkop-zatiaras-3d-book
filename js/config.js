@@ -70,6 +70,9 @@ export const CAMERA = {
 
 export const ZOOM = { MIN: 0.6, MAX: 3.2, STEP: 1.25, DOUBLE_TAP: 2 };
 
+// Emboss timbul halus dari tinta. Kecil saja agar mewah, tidak lebay.
+export const EMBOSS = { COVER: 0.02, PAGE: 0.007 };
+
 export const PERF = {
   TARGET_FPS: 60,
   LOW_FPS: 50,

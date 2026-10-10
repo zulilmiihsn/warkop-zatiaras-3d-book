@@ -1,4 +1,4 @@
-import { BOOK, IMAGE_INDEX } from './config.js';
+import { BOOK, EMBOSS, IMAGE_INDEX } from './config.js';
 import { toTexture, coverPainter, photoPainter, fullBleedPainter } from './textures.js';
 
 /** Spread map. Same pairing as original MF. */
@@ -11,18 +11,17 @@ function buildSpreads(images) {
   ];
 }
 
-function paperMaterial(renderer, painter, isCover, side, bumpPainter, mirrored = false) {
+function paperMaterial(renderer, painter, isCover, side, mirrored = false) {
+  const tex = toTexture(renderer, painter, mirrored);
   const mat = new THREE.MeshStandardMaterial({
-    map: toTexture(renderer, painter, mirrored),
-    roughness: isCover ? 0.6 : 0.92,
+    map: tex,
+    roughness: isCover ? 0.55 : 0.9,
     metalness: 0,
     side,
+    // Emboss dari tinta yang sama. Halus, mewah.
+    bumpMap: tex,
+    bumpScale: isCover ? EMBOSS.COVER : EMBOSS.PAGE,
   });
-  if (isCover) {
-    mat.alphaTest = 0.5;
-    mat.bumpMap = bumpPainter;
-    mat.bumpScale = 1;
-  }
   return mat;
 }
 
@@ -39,21 +38,12 @@ export function createBook(renderer, bookGroup, images) {
     const geo = new THREE.PlaneGeometry(w, h, BOOK.SEGMENTS, 1);
     geo.translate(w / 2, 0, 0);
 
-    const frontBump = i === 0 ? toTexture(renderer, coverPainter(images, false, true), false) : null;
-
     const front = new THREE.Mesh(
       geo,
-      paperMaterial(renderer, spread[0], isCoverLeaf, THREE.FrontSide, frontBump, false),
+      paperMaterial(renderer, spread[0], isCoverLeaf, THREE.FrontSide, false),
     );
     // Belakang wajib mirror, sama seperti tex(f[1],1) asli. Tanpa ini teks terbalik.
-    const backMat = paperMaterial(
-      renderer,
-      spread[1],
-      isCoverLeaf,
-      THREE.BackSide,
-      i === spreads.length - 1 ? toTexture(renderer, coverPainter(images, true, true), true) : null,
-      true,
-    );
+    const backMat = paperMaterial(renderer, spread[1], isCoverLeaf, THREE.BackSide, true);
     const back = new THREE.Mesh(geo, backMat);
 
     front.castShadow = true;

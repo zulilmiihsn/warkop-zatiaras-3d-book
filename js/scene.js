@@ -30,6 +30,11 @@ export function createStage(stageEl) {
   key.shadow.normalBias = 0.015;
   scene.add(key);
 
+  // Isi lembut dari lawan arah agar relief timbul terbaca. Tanpa bayangan.
+  const fill = new THREE.DirectionalLight(0xfff0e0, 0.18);
+  fill.position.set(3, 5, -4);
+  scene.add(fill);
+
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), new THREE.ShadowMaterial({ opacity: 0.14 }));
   floor.rotation.x = -Math.PI / 2;
   floor.position.y = -0.02;
