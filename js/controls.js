@@ -22,7 +22,10 @@ export function createState() {
 }
 
 export function goPage(state, delta) {
-  state.target = clamp(Math.round(state.target) + delta, 0, BOOK.LEAF_COUNT);
+  const next = clamp(Math.round(state.target) + delta, 0, BOOK.LEAF_COUNT);
+  // Pindah spread selalu bingkai ulang agar cover/halaman pas. Zoom lama tak terbawa.
+  if (next !== Math.round(state.target)) resetView(state);
+  state.target = next;
 }
 
 export function setZoom(state, v) {
@@ -159,6 +162,7 @@ export function attachControls({ stageEl, state, ui }) {
               ? startPage - Math.sign(velocityX)
               : startPage;
         state.target = clamp(Math.round(state.target), 0, BOOK.LEAF_COUNT);
+        if (state.target !== startPage) resetView(state);
         state.dragging = false;
       } else if (!moved) {
         if (type === 'mouse') goPage(state, e.clientX > innerWidth / 2 ? 1 : -1);

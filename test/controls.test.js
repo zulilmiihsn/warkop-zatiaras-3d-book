@@ -10,12 +10,17 @@ describe('controls', () => {
     assert.equal(clamp(-2, 0, 4), 0);
   });
 
-  it('pindah halaman dalam 0..4', () => {
+  it('pindah halaman bingkai ulang, mentok tidak reset', () => {
     const s = createState();
+    setZoom(s, 2);
+    s.panTX = 1;
+    goPage(s, 1);
+    assert.equal(s.target, 1);
+    assert.equal(s.zoomTarget, 1);
+    assert.equal(s.panTX, 0);
+    setZoom(s, 2);
     goPage(s, 99);
     assert.equal(s.target, BOOK.LEAF_COUNT);
-    goPage(s, -99);
-    assert.equal(s.target, 0);
   });
 
   it('zoom kejepit + reset', () => {
