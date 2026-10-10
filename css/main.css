@@ -98,7 +98,7 @@ canvas {
 
 #bright {
   position: absolute;
-  right: calc(12px + env(safe-area-inset-right, 0px));
+  right: calc(32px + env(safe-area-inset-right, 0px));
   top: 50%;
   transform: translateY(-50%);
   display: flex;
