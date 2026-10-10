@@ -58,6 +58,11 @@ body {
   animation: swipeHint 0.66s ease-in-out 3;
 }
 
+#swipe .hand {
+  display: inline-block;
+  transform: rotate(-70deg);
+}
+
 @keyframes swipeHint {
   0% {
     transform: translate(-90%, -50%);
