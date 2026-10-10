@@ -5,7 +5,8 @@ export function createStage(stageEl) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  // PCF + radius agar tepi bayangan lembut dinamis, tidak kaku.
+  renderer.shadowMap.type = THREE.PCFShadowMap;
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.NoToneMapping;
   stageEl.appendChild(renderer.domElement);
@@ -28,6 +29,7 @@ export function createStage(stageEl) {
   key.shadow.camera.far = 30;
   key.shadow.bias = -0.0004;
   key.shadow.normalBias = 0.015;
+  key.shadow.radius = 6;
   scene.add(key);
 
   // Isi lembut dari lawan arah agar relief timbul terbaca. Tanpa bayangan.

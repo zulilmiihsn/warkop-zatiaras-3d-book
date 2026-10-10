@@ -59,6 +59,8 @@ export function createBook(renderer, bookGroup, images) {
 
     front.castShadow = true;
     front.receiveShadow = true;
+    // Belakang ikut coret bayangan agar lipatan hidup antar halaman.
+    back.castShadow = true;
     back.receiveShadow = true;
     front.material.shadowSide = THREE.DoubleSide;
     front.frustumCulled = false;
