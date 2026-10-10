@@ -3,6 +3,7 @@ import { clamp, loadImages } from './textures.js';
 import { createStage, fitStage } from './scene.js';
 import { createBook, bendLeaf } from './book.js';
 import { createState, attachControls } from './controls.js';
+import { createPerfMonitor, updatePerf } from './perf.js';
 
 const stageEl = document.getElementById('stage');
 const pageEl = document.getElementById('pg');
@@ -39,8 +40,10 @@ attachControls({
 
 let leaves = [];
 let last = performance.now();
+const perf = createPerfMonitor();
 
 function tick(now) {
+  updatePerf(perf, renderer, key, now);
   const dt = Math.min(PHYSICS.MAX_DT, (now - last) / 1000);
   last = now;
 

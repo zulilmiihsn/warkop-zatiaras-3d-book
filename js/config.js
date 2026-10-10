@@ -70,6 +70,22 @@ export const CAMERA = {
 
 export const ZOOM = { MIN: 0.6, MAX: 3.2, STEP: 1.25, DOUBLE_TAP: 2 };
 
+export const PERF = {
+  TARGET_FPS: 60,
+  LOW_FPS: 50,
+  HIGH_FPS: 58,
+  WINDOW_MS: 1500,
+  COOLDOWN_MS: 2500,
+  // Index 0 = kualitas penuh, sama persis seperti asli.
+  STEPS: [
+    { PIXEL_CAP: 2, SHADOW: 2048 },
+    { PIXEL_CAP: 1.5, SHADOW: 2048 },
+    { PIXEL_CAP: 1.25, SHADOW: 1024 },
+    { PIXEL_CAP: 1, SHADOW: 1024 },
+    { PIXEL_CAP: 1, SHADOW: 512 },
+  ],
+};
+
 export const UI_TEXT = {
   HINT_TOUCH: 'Geser jari untuk membalik halaman · Cubit 2 jari untuk zoom · Ketuk 2× untuk zoom cepat',
   HINT_DESKTOP:
