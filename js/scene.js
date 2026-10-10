@@ -31,7 +31,7 @@ export function createStage(stageEl) {
   scene.add(key);
 
   // Isi lembut dari lawan arah agar relief timbul terbaca. Tanpa bayangan.
-  const fill = new THREE.DirectionalLight(0xfff0e0, 0.18);
+  const fill = new THREE.DirectionalLight(0xfff0e0, 0.22);
   fill.position.set(3, 5, -4);
   scene.add(fill);
 

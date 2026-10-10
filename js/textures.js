@@ -39,11 +39,28 @@ export function paintSpineShade(ctx, side, w, h) {
 function paintPaperBase(ctx, side, w = FULL_W, h = FULL_H) {
   ctx.fillStyle = COLORS.CREAM;
   ctx.fillRect(0, 0, w, h);
-  for (let i = 0; i < 9000; i++) {
-    ctx.fillStyle = 'rgba(150,100,60,' + Math.random() * 0.05 + ')';
+  // Serat kertas dua lapis: bintik halus + serat panjang samar.
+  for (let i = 0; i < 14000; i++) {
+    ctx.fillStyle = 'rgba(150,100,60,' + Math.random() * 0.07 + ')';
     ctx.fillRect(Math.random() * w, Math.random() * h, 1 + Math.random() * 2, 1);
   }
+  for (let i = 0; i < 900; i++) {
+    ctx.fillStyle = 'rgba(120,85,50,' + Math.random() * 0.05 + ')';
+    ctx.fillRect(Math.random() * w, Math.random() * h, 4 + Math.random() * 8, 1);
+  }
   paintSpineShade(ctx, side, w, h);
+}
+
+/** Tooth halus cover agar cat tidak plastik. */
+function paintCoverTooth(ctx, w, h) {
+  for (let i = 0; i < 6000; i++) {
+    ctx.fillStyle = 'rgba(0,0,0,' + Math.random() * 0.05 + ')';
+    ctx.fillRect(Math.random() * w, Math.random() * h, 1 + Math.random() * 2, 1);
+  }
+  for (let i = 0; i < 3000; i++) {
+    ctx.fillStyle = 'rgba(255,255,255,' + Math.random() * 0.04 + ')';
+    ctx.fillRect(Math.random() * w, Math.random() * h, 1 + Math.random() * 2, 1);
+  }
 }
 
 /** Cover painter kotak penuh 1:1, tanpa skala, tanpa potong. */
@@ -55,6 +72,7 @@ export function coverPainter(images, isBack, bump = false) {
       ctx.fillRect(0, 0, FULL_W, FULL_H);
     } else {
       ctx.drawImage(images[isBack ? IMAGE_INDEX.COVER_BACK : IMAGE_INDEX.COVER_FRONT], 0, 0, FULL_W, FULL_H);
+      paintCoverTooth(ctx, FULL_W, FULL_H);
       const vignette = ctx.createRadialGradient(FULL_W / 2, FULL_H * 0.4, 250, FULL_W / 2, FULL_H / 2, 950);
       vignette.addColorStop(0, 'rgba(255,255,255,.07)');
       vignette.addColorStop(1, 'rgba(0,0,0,.28)');
