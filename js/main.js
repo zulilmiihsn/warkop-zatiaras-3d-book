@@ -8,6 +8,20 @@ import { createPerfMonitor, updatePerf } from './perf.js';
 const stageEl = document.getElementById('stage');
 const brightnessEl = document.getElementById('br');
 
+// Isyarat sapu 2 detik, sekali saja, khusus layar sentuh.
+try {
+  if (matchMedia('(pointer: coarse)').matches && !localStorage.getItem('wz-swipe-seen')) {
+    localStorage.setItem('wz-swipe-seen', '1');
+    const swipeEl = document.getElementById('swipe');
+    swipeEl.classList.add('show');
+    setTimeout(() => swipeEl.remove(), 2100);
+  } else {
+    document.getElementById('swipe').remove();
+  }
+} catch {
+  document.getElementById('swipe')?.remove();
+}
+
 const state = createState();
 const { renderer, scene, camera, hemi, key, bookGroup } = createStage(stageEl);
 fitStage(renderer, camera);

@@ -40,6 +40,38 @@ body {
   cursor: grabbing;
 }
 
+#swipe {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  z-index: 20;
+  pointer-events: none;
+  font-size: 44px;
+  color: rgba(184, 53, 46, 0.85);
+  text-shadow: 0 2px 12px rgba(255, 255, 255, 0.9);
+}
+
+#swipe.show {
+  display: block;
+  animation: swipeHint 0.66s ease-in-out 3;
+}
+
+@keyframes swipeHint {
+  0% {
+    transform: translate(-90%, -50%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(10%, -50%);
+    opacity: 0;
+  }
+}
+
 canvas {
   display: block;
   width: 100%;
